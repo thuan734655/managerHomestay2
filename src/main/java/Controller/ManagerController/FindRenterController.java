@@ -175,6 +175,7 @@ public class FindRenterController implements ActionListener {
 
         indexNext++;
         index++;
+
         if(indexNext  <= listRenter.size()-1) {
             findRenter.getShowIDRenter1FD().setText(listRenter.get(indexNext).getIdRenter() + "");
             findRenter.getShowIdRoom1FD().setText(listRenter.get(indexNext).getRentedRoom() + "");

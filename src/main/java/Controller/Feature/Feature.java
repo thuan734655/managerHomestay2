@@ -5,7 +5,6 @@ import DAO.RenterDAO;
 import DAO.RoomDAO;
 import Model.Renter;
 import Model.Room;
-
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -28,7 +27,7 @@ public class Feature {
     }
     public Date pareStringToDate(String dateStr) {
          Date birth = null;
-         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // phan tich va dinh dang Date
         try{
             birth = dateFormat.parse(dateStr);
         }
@@ -38,31 +37,14 @@ public class Feature {
         return birth;
     }
 
-//    public Date parseDateToString(Date date) {
-//        Date birth = null;
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        try{
-//            birth = dateFormat.parse(dateStr);
-//        }
-//        catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        return birth;
-//    }
 
     public  java.sql.Date parseDatetoSqlDate(Date dateUtil) {
-        return new java.sql.Date(dateUtil.getTime());
+        return new java.sql.Date(dateUtil.getTime()); // getTime : lay don vi thoi gian o mili giay
     }
-
-    public  java.util.Date parseSqlDateToDate(java.sql.Date sqlDate) {
-        return  new java.util.Date(sqlDate.getTime());
-    }
-
 
     public boolean isEmptyRoom(int idRoom) {
         RoomDAO roomDAO = new RoomDAO();
-        ArrayList<Room> listRoom = new ArrayList<>();
-        listRoom = roomDAO.selectALL();
+        ArrayList<Room> listRoom = roomDAO.selectALL();
 
         for(Room room : listRoom) {
             if(idRoom == room.getiDRoom() && room.getStatusRoom().equals("Still empty")) {
@@ -77,7 +59,7 @@ public class Feature {
         if(numberPhone.length() != 10) {
             throw new ScccdException("Incorrect quantity contact number");
         }
-        String numberPhoneReg = "^\\d+$";
+        String numberPhoneReg = "^\\d+$"; // \\d cho phep so tu 0 - 9, "+" it nhat 1 ki tu
         if(!numberPhone.matches(numberPhoneReg)) {
             throw new ScccdException("Contact number must contain only numbers");
         }
@@ -101,7 +83,7 @@ public class Feature {
     }
     public void checkValidityBirth(String birth) throws ScccdException {
 
-        String birthReg = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
+        String birthReg = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"; //[abc] lay a hoac b hoac c ,() nhom ,  [b]|[a] b or a
         if (!birth.matches(birthReg)) {
             throw new ScccdException("Wrong date of birth");
         }
@@ -169,10 +151,10 @@ public class Feature {
 
         Properties props = new Properties();
 
-        props.put("mail.smtp.host","smtp.gmail.com");
-        props.put("mail.smtp.port","587");
-        props.put("mail.smtp.auth","true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host","smtp.gmail.com"); // xac dinh dia chi cua may chu SMTP la cua Gmail
+        props.put("mail.smtp.port","587");  // cai dat cong ket noi den may chu smtp la 587 (TLS)
+        props.put("mail.smtp.auth","true");  // bat xac thuc thong tin nguoi gui bang mat khau va tai khoan
+        props.put("mail.smtp.starttls.enable", "true");  // bat che do ket noi an toan tu ung dung voi may chu smtp bang cach ma hoa thong tin
 
         Session session = Session.getInstance(props,new Authenticator(){
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -181,11 +163,16 @@ public class Feature {
         });
 
         try{
-            MimeMessage message = new MimeMessage(session);
+            MimeMessage message = new MimeMessage(session); // dung de luu tru nhung thong tin nhu dia chi nguoi gui , dia chi nguoi nhan, content...
+
             message.setFrom(new InternetAddress("nanco432@gmail.com"));
+
             message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(recipientEmail));
+
             message.setSubject(title);
+
             message.setText(content);
+
             Transport.send(message);
 
         }
@@ -196,7 +183,7 @@ public class Feature {
 
     }
     public void isValidityEmail(String email) throws EmailException {
-        String emailReg =  "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        String emailReg =  "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{5}+\\.[a-zA-Z]{3,}$";
         if(!email.matches(emailReg)) {
             throw new EmailException("Email invalid!");
         }

@@ -21,7 +21,6 @@ public class Connect {
 
             String Url = "jdbc:mySQL://localhost:3306/managerhomstay?";
 
-            // tat ca mat khau deu duoc cong them 1 vao cuoi
             connection = DriverManager.getConnection(Url,username,password);
         }
         catch (Exception e ) {
@@ -42,11 +41,4 @@ public class Connect {
         }
     }
 
-    public  void setUsername(String username) {
-        Connect.username = username;
-    }
-
-    public  void setPasswprd(String passwprd) {
-        Connect.password = passwprd;
-    }
 }

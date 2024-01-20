@@ -107,17 +107,17 @@ public class AddRenterController extends MouseAdapter implements ActionListener 
                                 // gui mail thong bao da dang ky
                                 String recipient = email;
                                 String title = "verify email";
-                                String content = "Hi " + name + "!!" + "\n" + " We send this email to inform you that you have registered to rent our accommodation with the following information: " + "\n" + "\n" +
-                                        "Name: " + surname + " " + midlename + " " + name + "\n" +
-                                        "ID: " + idRenterStr + "\n" +
-                                        "Contact number: " + numberPhone + "\n" +
+                                String content = "Hi " + name + "!!" + "\r\n" + " We send this email to inform you that you have registered to rent our accommodation with the following information: " + "\r\n" + "\r\n" +
+                                        "Name: " + surname + " " + midlename + " " + name +"\r\n" +
+                                        "ID: " + idRenterStr + "\r\n"+
+                                        "Contact number: " + numberPhone + "\r\n" +
                                         "citizen number: " +  scccd + "\r\n" +
-                                        "Date of birth: " + birth + "\n" +
-                                        "Gender: " + gender + "\n" +
-                                        "Room number: " + rentedroomStr + "\n" +
-                                        "Pay for room: " + payStr + "\n" +
-                                        "\n" +
-                                        "thanks, " + "\n" +
+                                        "Date of birth: " + birth + "\r\n" +
+                                        "Gender: " + gender + "\r\n" +
+                                        "Room number: " + rentedroomStr + "\r\n" +
+                                        "Pay for room: " + payStr + "\r\n" +
+                                        "\r\n" +
+                                        "thanks, " + "\r\n" +
                                         "Thuan";
 
                                 feature.sendEmail(recipient,title,content);
